@@ -1,0 +1,8 @@
+/target
+/dev.docker-compose.yml
+/prod.docker-compose.yml
+*.Dockerfile
+Dockerfile
+/dev.sh
+/prod.sh
+/README.md

@@ -1,0 +1,9 @@
+/node_modules
+/dev.Dockerfile
+/prod.Dockerfile
+/dev.sh
+/prod.sh
+/README.md
+
+/style/*
+!/style/input.scss

@@ -18,7 +18,8 @@ RUN apt install -y \
     libssl-dev \
     libpq-dev \
     zsh \
-    lsb-release
+    lsb-release \
+    screen
 
 # Install Zsh with Oh My Zsh with plugins and set as default shell
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended && \
@@ -58,3 +59,5 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     groupadd docker; \
     fi && \
     usermod -aG docker root
+
+WORKDIR /app
