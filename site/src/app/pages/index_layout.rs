@@ -1,10 +1,10 @@
 use super::*;
 
+pub mod another_page;
 pub mod index;
-pub mod machines;
 
+pub use another_page::AnotherPage;
 pub use index::Index;
-pub use machines::Machines;
 
 #[component]
 pub fn IndexLayout() -> impl IntoView {

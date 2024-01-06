@@ -30,7 +30,7 @@ pub fn App() -> impl IntoView {
         }>
             <Routes>
                 <Route path="/" view=pages::IndexLayout>
-                    <Route path="/machines" view=pages::index_layout::Machines />
+                    <Route path="/another-page" view=pages::index_layout::AnotherPage />
                     <Route path="" view=pages::index_layout::Index />
                 </Route>
             </Routes>
