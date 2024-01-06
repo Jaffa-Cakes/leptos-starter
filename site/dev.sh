@@ -1,8 +1,12 @@
 #!/bin/bash
 
 # Set Leptos environment variables
-LEPTOS_SITE_ADDR=0.0.0.0:3000
-LEPTOS_RELOAD_PORT=3001
+export LEPTOS_SITE_ADDR=0.0.0.0:3000
+export LEPTOS_RELOAD_PORT=3001
+
+# Set Rust environment variables
+export RUST_BACKTRACE=1
+export RUST_LOG=info
 
 # Watch for changes in the tailwindcss file
 echo "1. Starting CSS watcher..."
