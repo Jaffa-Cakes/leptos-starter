@@ -3,6 +3,23 @@ version: '3.8'
 name: dev-leptos-starter
 
 services:
+  db:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - 5432:5432
+    volumes:
+      - ./:/app
+      - ./db/data:/var/lib/postgresql/16/main
+    command: [ "./db/dev.sh" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 2s
+      start_period: 0s
+      retries: 10
+
   site:
     build:
       context: .
@@ -13,3 +30,6 @@ services:
       - 3000:3000
       - 3001:3001
     command: ./site/dev.sh
+    depends_on:
+      db:
+        condition: service_healthy

@@ -40,6 +40,8 @@ tracing-subscriber = { version = "0.3", features = [
     "env-filter",
 ], optional = true }
 
+diesel = { version = "2.1.0", features = ["postgres"], optional = true }
+
 [features]
 hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate"]
 ssr = [
@@ -62,6 +64,8 @@ ssr = [
     "dep:tarpc",
     "dep:tracing-opentelemetry",
     "dep:tracing-subscriber",
+
+    "dep:diesel",
 ]
 
 [package.metadata.leptos]

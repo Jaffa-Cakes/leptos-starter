@@ -16,7 +16,7 @@ pub fn App() -> impl IntoView {
 
     view! {
         // id=leptos means cargo-leptos will hot-reload this stylesheet
-        <Stylesheet id="leptos" href="/pkg/panel.css"/>
+        <Stylesheet id="leptos" href="/pkg/site.css"/>
 
         <Title text="Welcome to Leptos!!!"/>
 

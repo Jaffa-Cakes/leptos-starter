@@ -4,6 +4,7 @@ FROM debian:bookworm
 # Locked versions
 ARG RUST_VERSION_FULL=1.75.0
 ARG NODE_VERSION_MAJOR=20
+ARG POSTGRESQL_MAJOR=16
 
 # Update package repositories and existing packages
 RUN apt update && \
@@ -19,7 +20,8 @@ RUN apt install -y \
     libpq-dev \
     zsh \
     lsb-release \
-    screen
+    screen \
+    wget
 
 # Install Zsh with Oh My Zsh with plugins and set as default shell
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended && \
@@ -60,4 +62,26 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     fi && \
     usermod -aG docker root
 
+### Tell git to trust "dubious" ownership
+RUN git config --global --add safe.directory /workspace
+
+# Diesel environment variables
+ENV DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
+
+### Install PostgreSQL
+ENV LC_ALL=C
+RUN sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    apt update && \
+    apt -y install postgresql-${POSTGRESQL_MAJOR} && \
+    service postgresql start && \
+    su -c "psql -c \"ALTER USER postgres PASSWORD 'postgres';\"" - postgres && \
+    service postgresql stop && \
+    echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/16/main/pg_hba.conf && \
+    echo "listen_addresses='*'" >> /etc/postgresql/16/main/postgresql.conf && \
+    sed -i 's/local   all             postgres                                peer/local   all             postgres                                md5/' /etc/postgresql/16/main/pg_hba.conf && \
+    mkdir -p /var/lib/postgresql/init_data && \
+    cp -a /var/lib/postgresql/16/main/. /var/lib/postgresql/init_data
+
+# Workdir
 WORKDIR /app
