@@ -66,7 +66,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
 RUN git config --global --add safe.directory /workspace
 
 # Diesel environment variables
-ENV DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
+ENV DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
 
 ### Install PostgreSQL
 ENV LC_ALL=C
