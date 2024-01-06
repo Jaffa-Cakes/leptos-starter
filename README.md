@@ -8,3 +8,5 @@ To-do:
 - Implement Diesel connection pooling
 - Implement async for Diesel
 - Create better database connection test
+- Vastly improve documentation
+- Remove unnecessary dependencies
